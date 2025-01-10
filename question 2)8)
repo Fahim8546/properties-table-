@@ -1,0 +1,79 @@
+CREATE TABLE Patient_Data (
+    PatientID INT PRIMARY KEY,
+    First_Name VARCHAR(50) NOT NULL,
+    Last_Name VARCHAR(50) NOT NULL,
+    Date_of_Birth DATE NOT NULL,
+    Gender VARCHAR(10) NOT NULL,
+    Address VARCHAR(100),
+    Phone_Number VARCHAR(15),
+    Email VARCHAR(50)
+);
+
+CREATE TABLE Visit_Record (
+    VisitID INT PRIMARY KEY,
+    PatientID INT NOT NULL,
+    Facility_ID INT NOT NULL,
+    Visit_Date DATE NOT NULL,
+    Visit_Type VARCHAR(50),
+    Diagnosis VARCHAR(100),
+    Treatment_ID INT,
+    FOREIGN KEY (PatientID) REFERENCES Patient_Data(PatientID),
+    FOREIGN KEY (Treatment_ID) REFERENCES Treatment(TreatmentID)
+);
+
+CREATE TABLE Treatment (
+    TreatmentID INT PRIMARY KEY,
+    Treatment_Name VARCHAR(100) NOT NULL,
+    Treatment_Description TEXT,
+    Dosage VARCHAR(50),
+    Side_Effects TEXT
+);
+
+CREATE TABLE Lab_Test (
+    TestID INT PRIMARY KEY,
+    VisitID INT NOT NULL,
+    Test_Type VARCHAR(50),
+    Test_Result VARCHAR(50),
+    Test_Date DATE,
+    Technician_ID INT,
+    FOREIGN KEY (VisitID) REFERENCES Visit_Record(VisitID)
+);
+
+CREATE TABLE User_Role (
+    RoleID INT PRIMARY KEY,
+    RoleName VARCHAR(50) UNIQUE,
+    Permissions TEXT
+);
+
+CREATE TABLE Supply_Chain (
+    SupplyID INT PRIMARY KEY,
+    Resource_ID INT NOT NULL,
+    Facility_ID INT NOT NULL,
+    Quantity_Shipped INT,
+    Shipment_Date DATE,
+    Expected_Arrival_Date DATE,
+    Status VARCHAR(50),
+    FOREIGN KEY (Resource_ID) REFERENCES Resource(ResourceID),
+    FOREIGN KEY (Facility_ID) REFERENCES Health_Facility(Facility_ID)
+);
+
+CREATE TABLE Resource (
+    ResourceID INT PRIMARY KEY,
+    Resource_Type VARCHAR(50),
+    Quantity INT,
+    Unit VARCHAR(20),
+    Last_Updated_Date DATE
+);
+
+CREATE TABLE Health_Facility (
+    Facility_ID INT PRIMARY KEY,
+    Location_ID INT NOT NULL,
+    Facility_Type_ID INT NOT NULL,
+    Facility_Name VARCHAR(100),
+    Capacity INT,
+    Contact_Person VARCHAR(50),
+    Phone_Number VARCHAR(15),
+    Email VARCHAR(50),
+    FOREIGN KEY (Location_ID) REFERENCES geographical_location(Location_ID),
+    FOREIGN KEY (Facility_Type_ID) REFERENCES facility_type(Facility_Type_ID)
+);
