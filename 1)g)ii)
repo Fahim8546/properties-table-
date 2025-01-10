@@ -1,0 +1,5 @@
+INSERT INTO Properties (PropertyID, Address, City, Type, Size, Price, Status) VALUES 
+(1, '123 Main St', 'Kampala', 'Residential', 1500, 200000.00, 'Available'),
+(2, '456 Oak Ave', 'Kampala', 'Commercial', 2500, 300000.00, 'Available'),
+-- More records with appropriate values
+(10, '789 Pine Rd', 'Kampala', 'Industrial', 5000, 700000.00, 'Available');
